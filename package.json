@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "d3": "7.9.0",
+    "@observablehq/plot": "0.6.16",
     "d3-svg-to-png": "0.3.1"
   },
   "devDependencies": {
