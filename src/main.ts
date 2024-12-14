@@ -7,5 +7,5 @@ document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener(
   d3ToPng('svg#graph', 'graph');
 })
 
-setupGraph(document.querySelector<HTMLDivElement>('#myplot')!)
-setupPlot(document.querySelector<HTMLDivElement>('#plot-2')!)
+setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
+setupPlot(document.querySelector<HTMLDivElement>('#plot')!)
