@@ -27,7 +27,8 @@ export function setupPlot(element: HTMLDivElement) {
     const svg = d3.create("svg")
         .attr("width", width)
         .attr("height", height)
-        .attr("viewBox", [-width/2, -height/2, width, height]);
+        .attr("viewBox", [-width/2, -height/2, width, height])
+        .attr("id", "graph");
 
     // Add a line for each link, and a circle for each node.
     const link = svg.append("g")

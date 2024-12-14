@@ -3,6 +3,7 @@ import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
 import { setupPlot } from './graph.ts'
+import d3ToPng from 'd3-svg-to-png'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -21,6 +22,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </p>
   </div>
 `
+
+document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener('click', () => {
+  d3ToPng('svg#graph', 'graph');
+})
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 setupPlot(document.querySelector<HTMLDivElement>('#myplot')!)
