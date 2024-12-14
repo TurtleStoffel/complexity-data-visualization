@@ -4,7 +4,7 @@ interface CustomNode extends d3.SimulationNodeDatum {
     id: string;
 }
 
-export function setupPlot(element: HTMLDivElement) {
+export function setupGraph(element: HTMLDivElement) {
     const width = 640;
     const height = 400;
 
