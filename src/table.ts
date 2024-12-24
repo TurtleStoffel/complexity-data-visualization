@@ -1,9 +1,8 @@
 import * as d3 from 'd3'
+import { loadData } from './data'
 
 export async function setupTable(element: HTMLTableElement) {
-    console.log("Loading data from Complexity")
-
-    const metrics = await d3.json('./metrics.json') as [object]
+    const metrics = await loadData()
 
     console.log(metrics);
 
