@@ -25,8 +25,8 @@ export function setupGraph(element: HTMLDivElement) {
         .force("y", d3.forceY());
 
     const svg = d3.create("svg")
-        .attr("width", width)
-        .attr("height", height)
+        .attr("width", "100%")
+        //.attr("height", height)
         .attr("viewBox", [-width/2, -height/2, width, height])
         .attr("id", "graph");
 
