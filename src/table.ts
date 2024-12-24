@@ -3,6 +3,7 @@ import { loadData } from './data'
 
 export async function setupTable(element: HTMLTableElement) {
     const metrics = await loadData()
+    metrics.sort((a, b) => d3.ascending(a.path, b.path))
 
     console.log(metrics);
 
