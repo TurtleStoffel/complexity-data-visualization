@@ -7,7 +7,9 @@ export async function setupTable(element: HTMLTableElement) {
 
     console.log(metrics);
 
-    const table = d3.create("table")
+    const table = d3
+        .create("table")
+        .attr("class", "table-fixed w-full")
 
     // Table Header
     table.append("thead")
@@ -29,6 +31,7 @@ export async function setupTable(element: HTMLTableElement) {
         .enter()
         .append("td")
         .text(d => d)
+        .attr("class", "truncate")
 
     element.append(table.node()!!)
 }

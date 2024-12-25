@@ -9,7 +9,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="grid grid-cols-3 grid-flow-row auto-rows-min gap-4">
     <div id="graph" class="w-full"></div>
     <div id="plot" class="w-full"></div>
-    <div id="table" class="w-full overflow-auto max-h-96"></div>
+    <div id="table" class="w-full overflow-y-auto max-h-96"></div>
     <div class="w-full"></div>
     <button id="download-button">Download</button>
   </div>
