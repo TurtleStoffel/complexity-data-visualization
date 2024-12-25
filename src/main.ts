@@ -5,7 +5,6 @@ import d3ToPng from 'd3-svg-to-png'
 import { setupTable } from './table.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <h1>Complexity</h1>
   <div class="grid grid-cols-3 grid-flow-row auto-rows-min gap-4">
     <div id="graph" class="w-full"></div>
     <div id="plot" class="w-full"></div>
