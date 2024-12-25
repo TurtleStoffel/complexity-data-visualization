@@ -21,5 +21,5 @@ document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener(
 })
 
 setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
-setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics)
-setupTable(document.querySelector<HTMLTableElement>('#table')!, metrics)
+setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.sizeMetrics)
+setupTable(document.querySelector<HTMLTableElement>('#table')!, metrics.sizeMetrics)
