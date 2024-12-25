@@ -1,17 +1,16 @@
 import * as Plot from '@observablehq/plot'
 import * as d3 from 'd3'
-import { loadData } from './data'
+import { SizeMetric } from './data'
 
-export async function setupPlot(element: HTMLDivElement) {
-    const metrics = await loadData()
+export async function setupPlot(element: HTMLDivElement, metrics: [SizeMetric]) {
+    // Sort a copy of the metrics array to prevent mutation of the original
+    const sortedMetrics = [...metrics].sort((a, b) => d3.descending(a.size, b.size))
 
-    metrics.sort((a, b) => d3.descending(a.size, b.size))
-
-    console.log(metrics);
+    console.log(sortedMetrics);
 
     const plot = Plot.plot({
         marks: [
-            Plot.rectY(metrics, Plot.binX({y: "count"}, {x: "size", thresholds: 20})),
+            Plot.rectY(sortedMetrics, Plot.binX({y: "count"}, {x: "size", thresholds: 20})),
         ]
     })
 

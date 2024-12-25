@@ -1,11 +1,11 @@
 import * as d3 from 'd3'
-import { loadData } from './data'
+import { SizeMetric } from './data'
 
-export async function setupTable(element: HTMLTableElement) {
-    const metrics = await loadData()
-    metrics.sort((a, b) => d3.ascending(a.path, b.path))
+export async function setupTable(element: HTMLTableElement, metrics: [SizeMetric]) {
+    // Sort a copy of the metrics array to prevent mutation of the original
+    const sortedMetrics = [...metrics].sort((a, b) => d3.ascending(a.path, b.path))
 
-    console.log(metrics);
+    console.log(sortedMetrics);
 
     const table = d3
         .create("table")
@@ -23,7 +23,7 @@ export async function setupTable(element: HTMLTableElement) {
     // Table Body
     table.append("tbody")
         .selectAll("tr")
-        .data(metrics)
+        .data(sortedMetrics)
         .enter()
         .append("tr")
         .selectAll("td")
