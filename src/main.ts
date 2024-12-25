@@ -6,6 +6,7 @@ import { setupTable } from './table.ts'
 import { loadData } from './data'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+  <h2 id="repository-name"></h2>
   <div class="grid grid-cols-3 grid-flow-row auto-rows-min gap-4">
     <div id="graph" class="w-full"></div>
     <div id="plot" class="w-full"></div>
@@ -15,6 +16,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 
 const metrics = await loadData()
+
+document.querySelector<HTMLHeadingElement>('#repository-name')!.innerText = metrics.repositoryName
 
 document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener('click', () => {
   d3ToPng('svg#graph', 'graph');
