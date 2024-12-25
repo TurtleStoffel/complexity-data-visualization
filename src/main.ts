@@ -10,8 +10,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <div id="graph" class="w-full"></div>
     <div id="plot" class="w-full"></div>
     <div id="table" class="w-full overflow-y-auto max-h-96"></div>
-    <div class="w-full"></div>
-    <button id="download-button">Download</button>
+    <button id="download-button" class="col-start-2">Download</button>
   </div>
 `
 
