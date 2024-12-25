@@ -25,7 +25,7 @@ export async function setupTable(element: HTMLTableElement) {
         .enter()
         .append("tr")
         .selectAll("td")
-        .data(d => Object.values(d))
+        .data(d => [d.filename, d.extension, d.size])
         .enter()
         .append("td")
         .text(d => d)

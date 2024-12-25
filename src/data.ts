@@ -2,6 +2,7 @@ import * as d3 from 'd3'
 
 interface SizeMetric {
     path: string;
+    filename: string;
     extension: string;
     size: number;
 }
