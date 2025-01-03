@@ -10,26 +10,25 @@ export async function setupTable(element: HTMLTableElement, metrics: [SizeMetric
     const table = d3
         .create("table")
         .attr("class", "table-fixed w-full")
+    
+    const tableHeaders = ["name", "extension", "size"]
 
     // Table Header
     table.append("thead")
         .append("tr")
         .selectAll("th")
-        .data(["name", "extension", "size"])
-        .enter()
-        .append("th")
+        .data(tableHeaders)
+        .join("th")
         .text(d => d)
     
     // Table Body
     table.append("tbody")
         .selectAll("tr")
         .data(sortedMetrics)
-        .enter()
-        .append("tr")
+        .join("tr")
         .selectAll("td")
         .data(d => [d.filename, d.extension, d.size])
-        .enter()
-        .append("td")
+        .join("td")
         .text(d => d)
         .attr("class", "truncate")
 
