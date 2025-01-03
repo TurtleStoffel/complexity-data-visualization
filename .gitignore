@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Project
+## Hardcoded metrics file for testing purposes
+/public/metrics.json
