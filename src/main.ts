@@ -1,9 +1,13 @@
+import d3ToPng from 'd3-svg-to-png'
+
 import './style.css'
+
+import { loadData } from './data'
+
 import { setupGraph } from './plots/graph.ts'
 import { setupPlot } from './plots/plot.ts'
-import d3ToPng from 'd3-svg-to-png'
+import { setupFolderTree } from './plots/folder-tree.ts'
 import { setupTable } from './plots/table.ts'
-import { loadData } from './data'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <h2 id="repository-name"></h2>
@@ -16,6 +20,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <tbody></tbody>
       </table>
     </div>
+    <div id="folder-tree" class="w-full"></div>
     <button id="download-button" class="col-start-2">Download</button>
   </div>
 `
@@ -31,3 +36,4 @@ document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener(
 setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
 setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.sizeMetrics)
 setupTable(metrics.sizeMetrics)
+setupFolderTree(document.querySelector<HTMLDivElement>('#folder-tree')!, metrics.sizeMetrics)
