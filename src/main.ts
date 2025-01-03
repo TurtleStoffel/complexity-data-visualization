@@ -6,7 +6,7 @@ import { loadData } from './data'
 
 import { setupGraph } from './plots/graph.ts'
 import { setupPlot } from './plots/plot.ts'
-import { setupFolderTree } from './plots/folder-tree.ts'
+import { setupFolderTree } from './plots/plot-folder-tree.ts'
 import { setupTable } from './plots/table.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
