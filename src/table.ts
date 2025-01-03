@@ -20,11 +20,22 @@ function renderTableBody(sortedMetrics: SizeMetric[]) {
         .data(tableHeaders)
         .join("th")
         .text(d => d)
-        .on("click", (_, d) => {
+        .attr("direction", "ascending")
+        .on("click", function (_, d) {
+            const direction = d3.select(this).attr("direction")
             if (d === "size") {
-                sortedMetrics.sort((a, b) => d3.descending(a.size, b.size))
+                sortedMetrics.sort((a, b) => { 
+                    if (direction === "ascending") {
+                        return d3.ascending(a.size, b.size)
+                    }
+                    else {
+                        return d3.descending(a.size, b.size)
+                    }
+                })
+
                 renderTableBody(sortedMetrics)
             }
+            d3.select(this).attr("direction", direction === "ascending" ? "descending" : "ascending")
         })
 
     d3.select("table#table>tbody")
