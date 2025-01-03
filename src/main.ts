@@ -10,7 +10,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="grid grid-cols-3 grid-flow-row auto-rows-min gap-4">
     <div id="graph" class="w-full"></div>
     <div id="plot" class="w-full"></div>
-    <div id="table" class="w-full overflow-y-auto max-h-96"></div>
+    <div class="w-full overflow-y-auto max-h-96">
+      <table class="table-fixed w-full" id="table">
+        <thead><tr></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
     <button id="download-button" class="col-start-2">Download</button>
   </div>
 `
@@ -25,4 +30,4 @@ document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener(
 
 setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
 setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.sizeMetrics)
-setupTable(document.querySelector<HTMLTableElement>('#table')!, metrics.sizeMetrics)
+setupTable(metrics.sizeMetrics)

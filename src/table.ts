@@ -1,28 +1,33 @@
 import * as d3 from 'd3'
 import { SizeMetric } from './data'
 
-export async function setupTable(element: HTMLTableElement, metrics: [SizeMetric]) {
+export async function setupTable(metrics: [SizeMetric]) {
     // Sort a copy of the metrics array to prevent mutation of the original
     const sortedMetrics = [...metrics].sort((a, b) => d3.ascending(a.path, b.path))
 
     console.log(sortedMetrics);
 
-    const table = d3
-        .create("table")
-        .attr("class", "table-fixed w-full")
     
-    const tableHeaders = ["name", "extension", "size"]
+    renderTableBody(sortedMetrics)
+}
+
+function renderTableBody(sortedMetrics: SizeMetric[]) {
+    const tableHeaders = ["filename", "extension", "size"]
 
     // Table Header
-    table.append("thead")
-        .append("tr")
+    d3.select("table#table>thead>tr")
         .selectAll("th")
         .data(tableHeaders)
         .join("th")
         .text(d => d)
-    
-    // Table Body
-    table.append("tbody")
+        .on("click", (_, d) => {
+            if (d === "size") {
+                sortedMetrics.sort((a, b) => d3.descending(a.size, b.size))
+                renderTableBody(sortedMetrics)
+            }
+        })
+
+    d3.select("table#table>tbody")
         .selectAll("tr")
         .data(sortedMetrics)
         .join("tr")
@@ -31,6 +36,4 @@ export async function setupTable(element: HTMLTableElement, metrics: [SizeMetric
         .join("td")
         .text(d => d)
         .attr("class", "truncate")
-
-    element.append(table.node()!!)
 }
