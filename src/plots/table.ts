@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { SizeMetric } from './data'
+import { SizeMetric } from '../data'
 
 export async function setupTable(metrics: [SizeMetric]) {
     // Sort a copy of the metrics array to prevent mutation of the original

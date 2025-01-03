@@ -1,6 +1,6 @@
 import * as Plot from '@observablehq/plot'
 import * as d3 from 'd3'
-import { SizeMetric } from './data'
+import { SizeMetric } from '../data'
 
 export async function setupPlot(element: HTMLDivElement, metrics: [SizeMetric]) {
     // Sort a copy of the metrics array to prevent mutation of the original

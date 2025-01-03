@@ -1,8 +1,8 @@
 import './style.css'
-import { setupGraph } from './graph.ts'
-import { setupPlot } from './plot.ts'
+import { setupGraph } from './plots/graph.ts'
+import { setupPlot } from './plots/plot.ts'
 import d3ToPng from 'd3-svg-to-png'
-import { setupTable } from './table.ts'
+import { setupTable } from './plots/table.ts'
 import { loadData } from './data'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
