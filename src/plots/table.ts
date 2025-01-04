@@ -22,20 +22,7 @@ function renderTableBody(sortedMetrics: FileMetrics[]) {
         .text(d => d)
         .attr("direction", "ascending")
         .on("click", function (_, d) {
-            const direction = d3.select(this).attr("direction")
-            if (d === "size") {
-                sortedMetrics.sort((a, b) => { 
-                    if (direction === "ascending") {
-                        return d3.ascending(a.size, b.size)
-                    }
-                    else {
-                        return d3.descending(a.size, b.size)
-                    }
-                })
-
-                renderTableBody(sortedMetrics)
-            }
-            d3.select(this).attr("direction", direction === "ascending" ? "descending" : "ascending")
+            handleTableSorting.call(this, d, sortedMetrics)
         })
 
     d3.select("table#table>tbody")
@@ -47,4 +34,22 @@ function renderTableBody(sortedMetrics: FileMetrics[]) {
         .join("td")
         .text(d => d)
         .attr("class", "truncate")
+}
+
+function handleTableSorting(this: d3.BaseType | HTMLTableCellElement, header: string, sortedMetrics: FileMetrics[]) {
+    const direction = d3.select(this).attr("direction")
+    if (header === "size") {
+        sortedMetrics.sort((a, b) => { 
+            if (direction === "ascending") {
+                return d3.ascending(a.size, b.size)
+            }
+            else {
+                return d3.descending(a.size, b.size)
+            }
+        })
+
+        renderTableBody(sortedMetrics)
+    }
+    d3.select(this).attr("direction", direction === "ascending" ? "descending" : "ascending")
+
 }
