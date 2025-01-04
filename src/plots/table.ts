@@ -12,7 +12,7 @@ export async function setupTable(metrics: [FileMetrics]) {
 }
 
 function renderTableBody(sortedMetrics: FileMetrics[]) {
-    const tableHeaders = ["filename", "extension", "size"]
+    const tableHeaders = ["filename", "extension", "size", "Imports"]
 
     // Table Header
     d3.select("table#table>thead>tr")
@@ -43,7 +43,7 @@ function renderTableBody(sortedMetrics: FileMetrics[]) {
         .data(sortedMetrics)
         .join("tr")
         .selectAll("td")
-        .data(d => [d.filename, d.extension, d.size])
+        .data(d => [d.filename, d.extension, d.size, d.numberOfImports])
         .join("td")
         .text(d => d)
         .attr("class", "truncate")

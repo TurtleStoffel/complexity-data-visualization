@@ -10,6 +10,7 @@ export interface FileMetrics {
     filename: string;
     extension: string;
     size: number;
+    numberOfImports: number;
 }
 
 export async function loadData() {
