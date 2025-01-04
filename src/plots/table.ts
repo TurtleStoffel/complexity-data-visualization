@@ -43,13 +43,35 @@ function renderTableBody(sortedMetrics: FileMetrics[]) {
 
 function handleTableSorting(this: d3.BaseType | HTMLTableCellElement, header: string, sortedMetrics: FileMetrics[]) {
     const direction = d3.select(this).attr("direction")
-    if (header === SIZE) {
+    if (header === FILENAME) {
+        sortedMetrics.sort((a, b) => {
+            if (direction === "ascending") {
+                return d3.ascending(a.filename, b.filename)
+            }
+            else {
+                return d3.descending(a.filename, b.filename)
+            }
+        })
+
+        renderTableBody(sortedMetrics)
+    } else if (header === SIZE) {
         sortedMetrics.sort((a, b) => { 
             if (direction === "ascending") {
                 return d3.ascending(a.size, b.size)
             }
             else {
                 return d3.descending(a.size, b.size)
+            }
+        })
+
+        renderTableBody(sortedMetrics)
+    } else if (header === IMPORTS) {
+        sortedMetrics.sort((a, b) => {
+            if (direction === "ascending") {
+                return d3.ascending(a.numberOfImports, b.numberOfImports)
+            }
+            else {
+                return d3.descending(a.numberOfImports, b.numberOfImports)
             }
         })
 
