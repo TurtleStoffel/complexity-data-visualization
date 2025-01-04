@@ -21,7 +21,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         <tbody></tbody>
       </table>
     </div>
-    <div id="folder-tree" class="w-full"></div>
     <div id="d3-folder-tree" class="w-full">
       <svg width="100%" viewBox="-5 -5 410 210">
         <g class="links"></g>
@@ -43,5 +42,4 @@ document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener(
 setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
 setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.sizeMetrics)
 setupTable(metrics.sizeMetrics)
-setupPlotFolderTree(document.querySelector<HTMLDivElement>('#folder-tree')!, metrics.sizeMetrics)
 setupD3FolderTree(metrics.sizeMetrics)
