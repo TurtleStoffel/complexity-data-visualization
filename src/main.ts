@@ -23,9 +23,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </div>
     <div id="folder-tree" class="w-full"></div>
     <div id="d3-folder-tree" class="w-full">
-      <svg width="100%" viewBox="0 0 400 200">
-        <g class="nodes"></g>
+      <svg width="100%" viewBox="-5 -5 410 210">
         <g class="links"></g>
+        <g class="nodes"></g>
       </svg>
     </div>
     <button id="download-button" class="col-start-2">Download</button>
