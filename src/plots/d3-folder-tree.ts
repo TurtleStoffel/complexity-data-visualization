@@ -23,10 +23,13 @@ export function setupD3FolderTree(metrics: [SizeMetric]) {
         .attr('r', 4);
     
     d3.select('svg g.links')
+        .attr("stroke", "#999")
+        .attr("stroke-opacity", 0.6)
         .selectAll('line.link')
         .data(root.links())
         .join('line')
         .classed('link', true)
+        .attr("stroke-width", 2)
         .attr('x1', d => d.source.x as number)
         .attr('y1', d => d.source.y as number)
         .attr('x2', d => d.target.x as number)
