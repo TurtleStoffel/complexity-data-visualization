@@ -6,7 +6,7 @@ import { loadData } from './data'
 
 import { setupGraph } from './plots/graph.ts'
 import { setupPlot } from './plots/plot.ts'
-import { setupFolderTree } from './plots/plot-folder-tree.ts'
+import { setupPlotFolderTree } from './plots/plot-folder-tree.ts'
 import { setupTable } from './plots/table.ts'
 import { setupD3FolderTree } from './plots/d3-folder-tree.ts'
 
@@ -43,5 +43,5 @@ document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener(
 setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
 setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.sizeMetrics)
 setupTable(metrics.sizeMetrics)
-setupFolderTree(document.querySelector<HTMLDivElement>('#folder-tree')!, metrics.sizeMetrics)
+setupPlotFolderTree(document.querySelector<HTMLDivElement>('#folder-tree')!, metrics.sizeMetrics)
 setupD3FolderTree(metrics.sizeMetrics)
