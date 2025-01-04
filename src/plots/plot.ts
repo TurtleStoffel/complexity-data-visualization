@@ -1,8 +1,8 @@
 import * as Plot from '@observablehq/plot'
 import * as d3 from 'd3'
-import { SizeMetric } from '../data'
+import { FileMetrics } from '../data'
 
-export async function setupPlot(element: HTMLDivElement, metrics: [SizeMetric]) {
+export async function setupPlot(element: HTMLDivElement, metrics: [FileMetrics]) {
     // Sort a copy of the metrics array to prevent mutation of the original
     const sortedMetrics = [...metrics]
         .filter(d => d.size < 2500)

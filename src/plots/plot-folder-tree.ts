@@ -1,7 +1,7 @@
 import * as Plot from '@observablehq/plot'
-import { SizeMetric } from "../data";
+import { FileMetrics } from "../data";
 
-export function setupPlotFolderTree(element: HTMLDivElement, metrics: [SizeMetric]) {
+export function setupPlotFolderTree(element: HTMLDivElement, metrics: [FileMetrics]) {
     const paths = metrics.map(metric => metric.path)
 
     const plot = Plot.plot({

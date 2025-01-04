@@ -41,6 +41,6 @@ document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener(
 })
 
 setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
-setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.sizeMetrics)
-setupTable(metrics.sizeMetrics)
-setupD3FolderTree(metrics.sizeMetrics)
+setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.fileMetrics)
+setupTable(metrics.fileMetrics)
+setupD3FolderTree(metrics.fileMetrics)

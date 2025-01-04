@@ -1,7 +1,7 @@
 import * as d3 from 'd3'
-import { SizeMetric } from '../data'
+import { FileMetrics } from '../data'
 
-export async function setupTable(metrics: [SizeMetric]) {
+export async function setupTable(metrics: [FileMetrics]) {
     // Sort a copy of the metrics array to prevent mutation of the original
     const sortedMetrics = [...metrics].sort((a, b) => d3.ascending(a.path, b.path))
 
@@ -11,7 +11,7 @@ export async function setupTable(metrics: [SizeMetric]) {
     renderTableBody(sortedMetrics)
 }
 
-function renderTableBody(sortedMetrics: SizeMetric[]) {
+function renderTableBody(sortedMetrics: FileMetrics[]) {
     const tableHeaders = ["filename", "extension", "size"]
 
     // Table Header

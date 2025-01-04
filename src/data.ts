@@ -2,10 +2,10 @@ import * as d3 from 'd3'
 
 export interface Export {
     repositoryName: string;
-    sizeMetrics: [SizeMetric];
+    fileMetrics: [FileMetrics];
 }
 
-export interface SizeMetric {
+export interface FileMetrics {
     path: string;
     filename: string;
     extension: string;

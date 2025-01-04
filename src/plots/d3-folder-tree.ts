@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
 
-import { SizeMetric } from "../data";
+import { FileMetrics } from "../data";
 
-export function setupD3FolderTree(metrics: [SizeMetric]) {
+export function setupD3FolderTree(metrics: [FileMetrics]) {
     const paths = metrics
         .filter(metric => metric.path.split('/').length < 3)
         .map(metric => metric.path)
