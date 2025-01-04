@@ -8,6 +8,7 @@ import { setupGraph } from './plots/graph.ts'
 import { setupPlot } from './plots/plot.ts'
 import { setupFolderTree } from './plots/plot-folder-tree.ts'
 import { setupTable } from './plots/table.ts'
+import { setupD3FolderTree } from './plots/d3-folder-tree.ts'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <h2 id="repository-name"></h2>
@@ -21,6 +22,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       </table>
     </div>
     <div id="folder-tree" class="w-full"></div>
+    <div id="d3-folder-tree" class="w-full">
+      <svg width="100%" viewBox="0 0 400 200">
+        <g class="nodes"></g>
+        <g class="links"></g>
+      </svg>
+    </div>
     <button id="download-button" class="col-start-2">Download</button>
   </div>
 `
@@ -37,3 +44,4 @@ setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
 setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.sizeMetrics)
 setupTable(metrics.sizeMetrics)
 setupFolderTree(document.querySelector<HTMLDivElement>('#folder-tree')!, metrics.sizeMetrics)
+setupD3FolderTree(metrics.sizeMetrics)
