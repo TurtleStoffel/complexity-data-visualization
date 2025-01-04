@@ -22,6 +22,15 @@ export function setupD3FolderTree(metrics: [SizeMetric]) {
         .attr('cy', d => d.y as number)
         .attr('r', 4);
     
+    d3.select('svg g.text')
+        .selectAll('text')
+        .data(root.descendants())
+        .join('text')
+        .attr('x', d => d.x as number)
+        .attr('y', d => d.y as number)
+        .attr('fill', 'currentColor')
+        .text(d => d.id as string);
+    
     d3.select('svg g.links')
         .attr("stroke", "#999")
         .attr("stroke-opacity", 0.6)

@@ -25,6 +25,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <svg width="100%" viewBox="-5 -5 410 210">
         <g class="links"></g>
         <g class="nodes"></g>
+        <g class="text"></g>
       </svg>
     </div>
     <button id="download-button" class="col-start-2">Download</button>
