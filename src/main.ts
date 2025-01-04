@@ -22,7 +22,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       </table>
     </div>
     <div id="d3-folder-tree" class="w-full">
-      <svg width="100%" viewBox="-5 -5 410 210">
+      <svg width="100%" viewBox="-5 -5 500 410">
         <g class="links"></g>
         <g class="nodes"></g>
         <g class="text"></g>
