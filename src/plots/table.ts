@@ -1,6 +1,11 @@
 import * as d3 from 'd3'
 import { FileMetrics } from '../data'
 
+const FILENAME = "filename"
+const EXTENSION = "extension"
+const SIZE = "size"
+const IMPORTS = "numberOfImports"
+
 export async function setupTable(metrics: [FileMetrics]) {
     // Sort a copy of the metrics array to prevent mutation of the original
     const sortedMetrics = [...metrics].sort((a, b) => d3.ascending(a.path, b.path))
@@ -12,7 +17,7 @@ export async function setupTable(metrics: [FileMetrics]) {
 }
 
 function renderTableBody(sortedMetrics: FileMetrics[]) {
-    const tableHeaders = ["filename", "extension", "size", "Imports"]
+    const tableHeaders = [FILENAME, EXTENSION, SIZE, IMPORTS]
 
     // Table Header
     d3.select("table#table>thead>tr")
@@ -38,7 +43,7 @@ function renderTableBody(sortedMetrics: FileMetrics[]) {
 
 function handleTableSorting(this: d3.BaseType | HTMLTableCellElement, header: string, sortedMetrics: FileMetrics[]) {
     const direction = d3.select(this).attr("direction")
-    if (header === "size") {
+    if (header === SIZE) {
         sortedMetrics.sort((a, b) => { 
             if (direction === "ascending") {
                 return d3.ascending(a.size, b.size)
