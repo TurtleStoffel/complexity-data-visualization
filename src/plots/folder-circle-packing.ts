@@ -27,12 +27,18 @@ export function setupFolderCirclePacking(metrics: [FileMetrics]) {
         .attr('fill', d => d.children ? color(d.depth) : 'lightsteelblue')
         .attr('cx', d => d.y as number)
         .attr('cy', d => d.x as number)
-        .attr('r', d => d.r as number);
+        .attr('r', d => d.r as number)
+        // Show border when hovering
+        .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
+        .on("mouseout", function() { d3.select(this).attr("stroke", null); });
 
     d3.select('svg g.folder-circle-text')
         .selectAll('text')
         .data(root.descendants())
         .join('text')
+        // Hide text if not direct children of root
+        .style("fill-opacity", d => d.parent === root ? 1 : 0)
+        .style("display", d => d.parent === root ? "inline" : "none")
         .attr('x', d => d.y as number)
         .attr('y', d => d.x as number)
         .text(d => d.id as string)
