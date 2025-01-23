@@ -3,12 +3,13 @@ import * as d3 from 'd3'
 import { FileMetrics } from "../data";
 
 export function setupFolderCirclePacking(metrics: [FileMetrics]) {
+    const depth = 5
     const paths = metrics
-        .filter(metric => metric.path.split('/').length < 3)
+        .filter(metric => metric.path.split('/').length < depth)
         .map(metric => metric.path)
 
     const color = d3.scaleLinear()
-        .domain([0, 3])
+        .domain([0, depth])
         .range(['hsl(152,80%,80%)', 'hsl(228,30%,40%)'])
         .interpolate(d3.interpolateHcl)
 
