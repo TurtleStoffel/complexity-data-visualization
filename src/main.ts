@@ -6,7 +6,6 @@ import { loadData } from './data'
 
 import { setupGraph } from './plots/graph.ts'
 import { setupPlot } from './plots/plot.ts'
-import { setupPlotFolderTree } from './plots/plot-folder-tree.ts'
 import { setupTable } from './plots/table.ts'
 import { setupD3FolderTree } from './plots/d3-folder-tree.ts'
 import { setupFolderCirclePacking } from './plots/folder-circle-packing.ts'
