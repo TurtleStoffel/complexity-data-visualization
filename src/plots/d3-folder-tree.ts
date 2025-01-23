@@ -14,7 +14,7 @@ export function setupD3FolderTree(metrics: [FileMetrics]) {
     tree(root);
     
     // X and Y are flipped to render the tree horizontally
-    d3.select('svg g.nodes')
+    d3.select('svg g.folder-tree-nodes')
         .selectAll('circle.node')
         .data(root.descendants())
         .join('circle')
@@ -23,7 +23,7 @@ export function setupD3FolderTree(metrics: [FileMetrics]) {
         .attr('cy', d => d.x as number)
         .attr('r', 4);
     
-    d3.select('svg g.text')
+    d3.select('svg g.folder-tree-text')
         .selectAll('text')
         .data(root.descendants())
         .join('text')
@@ -32,7 +32,7 @@ export function setupD3FolderTree(metrics: [FileMetrics]) {
         .attr('fill', 'currentColor')
         .text(d => d.id as string);
     
-    d3.select('svg g.links')
+    d3.select('svg g.folder-tree-links')
         .attr("stroke", "#999")
         .attr("stroke-opacity", 0.6)
         .selectAll('line.link')
