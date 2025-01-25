@@ -2,21 +2,66 @@ import * as d3 from 'd3'
 
 import { FileMetrics } from "../data";
 
-export function setupFolderCirclePacking(metrics: [FileMetrics]) {
-    const depth = 5
-    const paths = metrics
+const depth = 5
+
+export function getFolder(path: string) {
+    if (path === 'root') return null
+
+    const parts = path.split('/')
+
+    if (parts.length === 1) return 'root'
+
+    return parts.slice(0, parts.length - 1).join('/')
+}
+
+export function getFolders(path: string) {
+    const parts = path.split('/')
+
+    return parts.map((_, index) => {
+        if (index === 0) return 'root'
+
+        return parts.slice(0, index).join('/')
+    })
+}
+
+export function prepareFolderCirclePackingData(metrics: [FileMetrics]) {
+    const allFolders = new Set<string>()
+    const depthLimitedMetrics = metrics
         .filter(metric => metric.path.split('/').length < depth)
-        .map(metric => metric.path)
+        .map((metric) => {
+            // Add all folders to the set of existing folders
+            const folders = getFolders(metric.path)
+            folders.forEach((folder: string) => allFolders.add(folder))
+
+            return {
+                numberOfImports: metric.numberOfImports,
+                parentId: getFolder(metric.path),
+                id: metric.path,
+            }
+        })
+    
+    allFolders.forEach(folder => {
+        depthLimitedMetrics.push({
+            numberOfImports: 0,
+            id: folder,
+            parentId: getFolder(folder),
+        })
+    })
+
+    return depthLimitedMetrics
+}
+
+export function setupFolderCirclePacking(metrics: [FileMetrics]) {
+    const depthLimitedMetrics = prepareFolderCirclePackingData(metrics)
 
     const color = d3.scaleLinear()
         .domain([0, depth])
         .range(['hsl(152,80%,80%)', 'hsl(228,30%,40%)'])
         .interpolate(d3.interpolateHcl)
 
-    const root = d3.stratify().path((d) => d as string)(paths)
-    root.sum(d => 1)
+    const root = d3.stratify()(depthLimitedMetrics)
+    root.sum(d => d.numberOfImports)
     root.sort((a, b) => b.value - a.value)
-    console.log(root)
 
     const circlePacking = d3.pack().size([400, 400]).padding(4);
     circlePacking(root);
