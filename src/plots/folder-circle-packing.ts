@@ -51,12 +51,22 @@ export function prepareFolderCirclePackingData(metrics: [FileMetrics]) {
     return depthLimitedMetrics
 }
 
+
+export function getNodeColor(d: any, depthColor: any, complexityColor: any) {
+    return d.children ? depthColor(d.depth) : complexityColor(d.data.numberOfImports)
+}
+
 export function setupFolderCirclePacking(metrics: [FileMetrics]) {
     const depthLimitedMetrics = prepareFolderCirclePackingData(metrics)
 
-    const color = d3.scaleLinear()
+    const depthColor = d3.scaleLinear()
         .domain([0, depth])
         .range(['hsl(152,80%,80%)', 'hsl(228,30%,40%)'])
+        .interpolate(d3.interpolateHcl)
+
+    const complexityColor = d3.scaleLinear()
+        .domain([0, d3.max(depthLimitedMetrics, d => d.numberOfImports)])
+        .range(['hsl(180, 0.40%, 47.30%)', 'hsl(0, 97.50%, 30.80%)'])
         .interpolate(d3.interpolateHcl)
 
     const root = d3.stratify()(depthLimitedMetrics)
@@ -70,12 +80,17 @@ export function setupFolderCirclePacking(metrics: [FileMetrics]) {
         .selectAll('circle.node')
         .data(root.descendants())
         .join('circle')
-        .attr('fill', d => d.children ? color(d.depth) : 'lightsteelblue')
+        .attr('fill', d => getNodeColor(d, depthColor, complexityColor))
         .attr('cx', d => d.y as number)
         .attr('cy', d => d.x as number)
         .attr('r', d => d.r as number)
+        .attr('data-filename', d => d.id as string)
         // Show border when hovering
-        .on("mouseover", function() { d3.select(this).attr("stroke", "#000"); })
+        .on("mouseover", function() { 
+            const element = d3.select(this)
+            console.log(element.attr('data-filename'))
+            element.attr("stroke", "#000");
+        })
         .on("mouseout", function() { d3.select(this).attr("stroke", null); });
 
     d3.select('svg g.folder-circle-text')
