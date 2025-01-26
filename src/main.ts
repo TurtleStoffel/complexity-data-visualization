@@ -1,16 +1,16 @@
-import d3ToPng from 'd3-svg-to-png'
+import d3ToPng from "d3-svg-to-png";
 
-import './style.css'
+import "./style.css";
 
-import { loadData } from './data'
+import { loadData } from "./data";
 
-import { setupGraph } from './plots/graph.ts'
-import { setupPlot } from './plots/plot.ts'
-import { setupTable } from './plots/table.ts'
-import { setupD3FolderTree } from './plots/d3-folder-tree.ts'
-import { setupFolderCirclePacking } from './plots/folder-circle-packing.ts'
+import { setupGraph } from "./plots/graph.ts";
+import { setupPlot } from "./plots/plot.ts";
+import { setupTable } from "./plots/table.ts";
+import { setupD3FolderTree } from "./plots/d3-folder-tree.ts";
+import { setupFolderCirclePacking } from "./plots/folder-circle-packing.ts";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
+document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <h2 id="repository-name"></h2>
   <div class="grid grid-cols-3 grid-flow-row auto-rows-min gap-4">
     <div id="graph" class="w-full"></div>
@@ -36,18 +36,24 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     </div>
     <button id="download-button" class="col-start-2">Download</button>
   </div>
-`
+`;
 
-const metrics = await loadData()
+const metrics = await loadData();
 
-document.querySelector<HTMLHeadingElement>('#repository-name')!.innerText = metrics.repositoryName
+document.querySelector<HTMLHeadingElement>("#repository-name")!.innerText =
+    metrics.repositoryName;
 
-document.querySelector<HTMLButtonElement>('#download-button')!.addEventListener('click', () => {
-  d3ToPng('svg#graph', 'graph');
-})
+document
+    .querySelector<HTMLButtonElement>("#download-button")!
+    .addEventListener("click", () => {
+        d3ToPng("svg#graph", "graph");
+    });
 
-setupGraph(document.querySelector<HTMLDivElement>('#graph')!)
-setupPlot(document.querySelector<HTMLDivElement>('#plot')!, metrics.fileMetrics)
-setupTable(metrics.fileMetrics)
-setupD3FolderTree(metrics.fileMetrics)
-setupFolderCirclePacking(metrics.fileMetrics)
+setupGraph(document.querySelector<HTMLDivElement>("#graph")!);
+setupPlot(
+    document.querySelector<HTMLDivElement>("#plot")!,
+    metrics.fileMetrics,
+);
+setupTable(metrics.fileMetrics);
+setupD3FolderTree(metrics.fileMetrics);
+setupFolderCirclePacking(metrics.fileMetrics);

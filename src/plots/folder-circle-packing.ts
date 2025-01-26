@@ -1,106 +1,111 @@
-import * as d3 from 'd3'
+import * as d3 from "d3";
 
 import { FileMetrics } from "../data";
 
-const depth = 5
+const depth = 5;
 
 export function getFolder(path: string) {
-    if (path === 'root') return null
+    if (path === "root") return null;
 
-    const parts = path.split('/')
+    const parts = path.split("/");
 
-    if (parts.length === 1) return 'root'
+    if (parts.length === 1) return "root";
 
-    return parts.slice(0, parts.length - 1).join('/')
+    return parts.slice(0, parts.length - 1).join("/");
 }
 
 export function getFolders(path: string) {
-    const parts = path.split('/')
+    const parts = path.split("/");
 
     return parts.map((_, index) => {
-        if (index === 0) return 'root'
+        if (index === 0) return "root";
 
-        return parts.slice(0, index).join('/')
-    })
+        return parts.slice(0, index).join("/");
+    });
 }
 
 export function prepareFolderCirclePackingData(metrics: [FileMetrics]) {
-    const allFolders = new Set<string>()
+    const allFolders = new Set<string>();
     const depthLimitedMetrics = metrics
-        .filter(metric => metric.path.split('/').length < depth)
+        .filter((metric) => metric.path.split("/").length < depth)
         .map((metric) => {
             // Add all folders to the set of existing folders
-            const folders = getFolders(metric.path)
-            folders.forEach((folder: string) => allFolders.add(folder))
+            const folders = getFolders(metric.path);
+            folders.forEach((folder: string) => allFolders.add(folder));
 
             return {
                 numberOfImports: metric.numberOfImports,
                 parentId: getFolder(metric.path),
                 id: metric.path,
-            }
-        })
-    
-    allFolders.forEach(folder => {
+            };
+        });
+
+    allFolders.forEach((folder) => {
         depthLimitedMetrics.push({
             numberOfImports: 0,
             id: folder,
             parentId: getFolder(folder),
-        })
-    })
+        });
+    });
 
-    return depthLimitedMetrics
+    return depthLimitedMetrics;
 }
 
-
 export function getNodeColor(d: any, depthColor: any, complexityColor: any) {
-    return d.children ? depthColor(d.depth) : complexityColor(d.data.numberOfImports)
+    return d.children
+        ? depthColor(d.depth)
+        : complexityColor(d.data.numberOfImports);
 }
 
 export function setupFolderCirclePacking(metrics: [FileMetrics]) {
-    const depthLimitedMetrics = prepareFolderCirclePackingData(metrics)
+    const depthLimitedMetrics = prepareFolderCirclePackingData(metrics);
 
-    const depthColor = d3.scaleLinear()
+    const depthColor = d3
+        .scaleLinear()
         .domain([0, depth])
-        .range(['hsl(152,80%,80%)', 'hsl(228,30%,40%)'])
-        .interpolate(d3.interpolateHcl)
+        .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+        .interpolate(d3.interpolateHcl);
 
-    const complexityColor = d3.scaleLinear()
-        .domain([0, d3.max(depthLimitedMetrics, d => d.numberOfImports)])
-        .range(['hsl(180, 0.40%, 47.30%)', 'hsl(0, 97.50%, 30.80%)'])
-        .interpolate(d3.interpolateHcl)
+    const complexityColor = d3
+        .scaleLinear()
+        .domain([0, d3.max(depthLimitedMetrics, (d) => d.numberOfImports)])
+        .range(["hsl(180, 0.40%, 47.30%)", "hsl(0, 97.50%, 30.80%)"])
+        .interpolate(d3.interpolateHcl);
 
-    const root = d3.stratify()(depthLimitedMetrics)
-    root.sum(d => d.numberOfImports)
-    root.sort((a, b) => b.value - a.value)
+    const root = d3.stratify()(depthLimitedMetrics);
+    root.sum((d) => d.numberOfImports);
+    root.sort((a, b) => b.value - a.value);
 
     const circlePacking = d3.pack().size([400, 400]).padding(4);
     circlePacking(root);
 
-    d3.select('svg g.folder-circle-nodes')
-        .selectAll('circle.node')
+    d3.select("svg g.folder-circle-nodes")
+        .selectAll("circle.node")
         .data(root.descendants())
-        .join('circle')
-        .attr('fill', d => getNodeColor(d, depthColor, complexityColor))
-        .attr('cx', d => d.y as number)
-        .attr('cy', d => d.x as number)
-        .attr('r', d => d.r as number)
-        .attr('data-filename', d => d.id as string)
+        .join("circle")
+        .attr("fill", (d) => getNodeColor(d, depthColor, complexityColor))
+        .attr("cx", (d) => d.y as number)
+        .attr("cy", (d) => d.x as number)
+        .attr("r", (d) => d.r as number)
+        .attr("data-filename", (d) => d.id as string)
         // Show border when hovering
-        .on("mouseover", function() { 
-            const element = d3.select(this)
-            console.log(element.attr('data-filename'))
+        .on("mouseover", function () {
+            const element = d3.select(this);
+            console.log(element.attr("data-filename"));
             element.attr("stroke", "#000");
         })
-        .on("mouseout", function() { d3.select(this).attr("stroke", null); });
+        .on("mouseout", function () {
+            d3.select(this).attr("stroke", null);
+        });
 
-    d3.select('svg g.folder-circle-text')
-        .selectAll('text')
+    d3.select("svg g.folder-circle-text")
+        .selectAll("text")
         .data(root.descendants())
-        .join('text')
+        .join("text")
         // Hide text if not direct children of root
-        .style("fill-opacity", d => d.parent === root ? 1 : 0)
-        .style("display", d => d.parent === root ? "inline" : "none")
-        .attr('x', d => d.y as number)
-        .attr('y', d => d.x as number)
-        .text(d => d.id as string)
+        .style("fill-opacity", (d) => (d.parent === root ? 1 : 0))
+        .style("display", (d) => (d.parent === root ? "inline" : "none"))
+        .attr("x", (d) => d.y as number)
+        .attr("y", (d) => d.x as number)
+        .text((d) => d.id as string);
 }

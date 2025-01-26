@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import * as d3 from "d3";
 
 export interface Export {
     repositoryName: string;
@@ -14,7 +14,7 @@ export interface FileMetrics {
 }
 
 export async function loadData() {
-    console.log("Loading data from Complexity")
+    console.log("Loading data from Complexity");
 
-    return await d3.json('./metrics.json') as Export
+    return (await d3.json("./metrics.json")) as Export;
 }
